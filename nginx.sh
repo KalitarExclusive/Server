@@ -9,7 +9,7 @@ sudo systemctl start nginx
 sudo systemctl enable nginx
 
 # Define your domain names and corresponding port numbers
-declare -A domains=( ["example1.com"]="3001" ["example2.com"]="3002" ["example3.com"]="3003" )
+declare -A domains=( ["45.63.58.19"]="8096"
 
 # Create Nginx server blocks for each domain
 for domain in "${!domains[@]}"; do
@@ -21,10 +21,10 @@ for domain in "${!domains[@]}"; do
     cat <<EOF | sudo tee $config
 server {
     listen 80;
-    server_name $domain;
+    server_name simple-streams.com;
 
     location / {
-        proxy_pass http://localhost:$port;
+        proxy_pass http://45.63.58.19:8096;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
