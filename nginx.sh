@@ -8,9 +8,6 @@ sudo apt install nginx -y
 sudo systemctl start nginx
 sudo systemctl enable nginx
 
-# Define your domain names and corresponding port numbers
-declare -A domains=( ["simple-streams.com"]="8096" )
-
 # Create Nginx server blocks for each domain
 for domain in "${!domains[@]}"; do
     config="/etc/nginx/sites-available/$domain"
