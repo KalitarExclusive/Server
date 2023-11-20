@@ -9,7 +9,7 @@ sudo systemctl start nginx
 sudo systemctl enable nginx
 
 # Define your domain names and corresponding port numbers
-declare -A domains=( ["simple-streams.com"]="8096"
+declare -A domains=( ["simple-streams.com"]="8096" )
 
 # Create Nginx server blocks for each domain
 for domain in "${!domains[@]}"; do
@@ -21,10 +21,10 @@ for domain in "${!domains[@]}"; do
     cat <<EOF | sudo tee $config
 server {
     listen 80;
-    server_name simple-streams.com;
+    server_name $simple-streams.com;
 
     location / {
-        proxy_pass http://45.63.58.19:8096;
+        proxy_pass http://45.63.58.19:$8096;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -41,4 +41,12 @@ done
 # Test Nginx configuration and restart the service
 sudo nginx -t && sudo systemctl restart nginx
 
-echo "Nginx configuration complete. If there were no errors, your reverse proxy is now set up."
+# Install Certbot and its Nginx plugin
+sudo apt install certbot python3-certbot-nginx -y
+
+# Obtain and install Let's Encrypt certificates for each domain
+for domain in "${!domains[@]}"; do
+    sudo certbot --nginx -d $domain --redirect --agree-tos --no-eff-email --email your-email@example.com
+done
+
+echo "Nginx configuration complete. If there were no errors, your reverse proxy and SSL setup is now complete."
