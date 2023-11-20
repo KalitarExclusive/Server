@@ -21,7 +21,7 @@ for domain in "${!domains[@]}"; do
     cat <<EOF | sudo tee $config
 server {
     listen 80;
-    server_name $simple-streams.com;
+    server_name simple-streams.com;
 
     location / {
         proxy_pass http://45.63.58.19:$8096;
