@@ -9,7 +9,7 @@ sudo systemctl start nginx
 sudo systemctl enable nginx
 
 # Define your domain names and corresponding port numbers
-declare -A domains=( ["45.63.58.19"]="8096"
+declare -A domains=( ["simple-streams.com"]="8096"
 
 # Create Nginx server blocks for each domain
 for domain in "${!domains[@]}"; do
