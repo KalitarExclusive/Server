@@ -19,3 +19,6 @@ sudo apt install jellyfin -y
 # Enable and start the Jellyfin service
 sudo systemctl enable jellyfin
 sudo systemctl start jellyfin
+
+# Disable the firewall
+sudo ufw disable
